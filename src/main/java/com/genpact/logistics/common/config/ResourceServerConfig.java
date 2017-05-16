@@ -1,5 +1,7 @@
 package com.genpact.logistics.common.config;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
@@ -12,6 +14,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.R
 @Configuration
 @EnableResourceServer
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
+	Log log = LogFactory.getLog(ResourceServerConfig.class);
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
@@ -25,5 +28,6 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
             .antMatchers("/order/**").permitAll()                
 //          .antMatchers("/public/**").permitAll()               
             .anyRequest().authenticated();
+        log.info("微服务资源管理设置！");
     }
 }

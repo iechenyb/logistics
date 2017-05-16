@@ -17,7 +17,7 @@ public class LogisticsApplicationTests {
 	private UserRepository userRepository;
 	@Test
 	public void contextLoads() {
-		User user = userRepository.findByUsername("voltest");
+		User user = userRepository.findByUsername("voltest");//dao层如何实现
 		for(Role role:user.getRoles()){
 			System.out.println(role.getName()+","+role.getType());
 		}

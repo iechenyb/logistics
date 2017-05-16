@@ -1,6 +1,5 @@
 package com.genpact.logistics.modules.security.service;
 
-import junit.framework.Assert;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,9 +22,7 @@ public class UserService implements UserDetailsService {
 		return userRepository.findOne(id);
 	}
 
-	@SuppressWarnings("deprecation")
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		Assert.assertNotNull("null occur", userRepository);
 		User user = userRepository.findByUsername(username);
 		if (user == null) {
 			throw new UsernameNotFoundException("Could not find the user '" + username + "'");
@@ -40,6 +37,7 @@ public class UserService implements UserDetailsService {
 		
 		return customUserDetails;
 	}
+	//自定义方法，尚无用处！
 	 public boolean hasRole(String role){
 		 System.out.println("角色判断！");
 		    return true;

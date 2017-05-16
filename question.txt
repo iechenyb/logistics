@@ -1,0 +1,3 @@
+用户名和密码 怎么被验证的，如何将用户的角色信息进行加载存储到缓存里的？
+userService中的findByUsername如何实现，没看到实现逻辑，但是却操作了自己创建的表？
+hasrole如何实现，如何实现hasipadress,hasanyrole，aop拦截面在哪里，如何判断的？TokenEndpoint

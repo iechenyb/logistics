@@ -2,6 +2,8 @@ package com.genpact.logistics.common.config;
 
 import java.util.HashMap;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
@@ -15,6 +17,7 @@ import com.alibaba.druid.support.http.WebStatFilter;
 @Configuration
 @EnableCaching
 public class BaseConfig {
+	Log log = LogFactory.getLog(BaseConfig.class);
 	@Bean
 	public ServletRegistrationBean druidServlet(@Value("${druid.allow}") String allow) {
 		ServletRegistrationBean bean = new ServletRegistrationBean(new StatViewServlet(), "/druid/*");
@@ -24,6 +27,7 @@ public class BaseConfig {
 		HashMap<String, String> initParameters = new HashMap<String,String>();
 		initParameters.put("allow", allow);
 		bean.setInitParameters(initParameters);
+		log.info("druidServlet");
 		return bean;
 	}
 	@Bean
@@ -32,6 +36,7 @@ public class BaseConfig {
 		filterRegistrationBean.setFilter(new WebStatFilter());
 		filterRegistrationBean.addUrlPatterns("/*");
 		filterRegistrationBean.addInitParameter("exclusions", exclusions);
+		log.info("filterRegistrationBean");
 		return filterRegistrationBean;
 	}
 

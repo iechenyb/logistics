@@ -1,5 +1,7 @@
 package com.genpact.logistics.common.config;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,6 +25,7 @@ import com.genpact.logistics.modules.security.service.UserService;
 @Configuration
 @EnableAuthorizationServer
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
+	Log log = LogFactory.getLog(AuthorizationServerConfig.class);
     @Autowired
     private TokenStore tokenStore;
 
@@ -35,11 +38,12 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         clients.inMemory()
-                .withClient("client")// 
-                .secret("m_volunteer")
+                .withClient("client")//授权客户端信息 
+                .secret("m_volunteer")//授权客户端信息 
                 .authorizedGrantTypes("password", "refresh_token")            
                 .scopes("read", "write")
                 .accessTokenValiditySeconds(2592000);
+        log.info("初始化授权信息！");
     }
 
     @Override
@@ -48,16 +52,19 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 .tokenStore(tokenStore)
                 .authenticationManager(authenticationManager)
                 .userDetailsService(userService);
+        log.info("配置userSerivce！");
     }
 
     @Bean
     public TokenStore tokenStore() {
+    	 log.info("tokenStore！");
         return new InMemoryTokenStore();
     }
 
     @Bean
     @Primary
     public DefaultTokenServices tokenServices() {
+    	log.info("tokenServices！");
         DefaultTokenServices tokenServices = new DefaultTokenServices();
         tokenServices.setSupportRefreshToken(true); // support refresh token
         tokenServices.setTokenStore(tokenStore); // use in-memory token store
