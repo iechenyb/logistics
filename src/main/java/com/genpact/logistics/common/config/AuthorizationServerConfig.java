@@ -43,6 +43,12 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 .authorizedGrantTypes("password", "refresh_token")            
                 .scopes("read", "write")
                 .accessTokenValiditySeconds(2592000);
+        clients.inMemory()
+        .withClient("sina")//授权客户端信息 
+        .secret("1")//授权客户端信息 
+        .authorizedGrantTypes("authorization_code")            
+        .scopes("app")
+        .accessTokenValiditySeconds(2592000);
         log.info("初始化授权信息！");
     }
 
