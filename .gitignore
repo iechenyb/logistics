@@ -4,7 +4,6 @@ target/
 ### STS ###
 .apt_generated
 .factorypath
-.project
 .springBeans
 ### IntelliJ IDEA ###
 .idea
